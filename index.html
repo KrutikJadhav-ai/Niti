@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>For Niti 💌</title>
+  <meta name="description" content="A very special message, just for you, Niti." />
+  <meta name="theme-color" content="#0d0814" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ───────────── PERSISTENT LAYERS ───────────── -->
+
+  <!-- Star / particle canvas — always visible in bg -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Floating hearts trail (cursor / touch) -->
+  <div id="hearts" aria-hidden="true"></div>
+
+  <!-- Custom heart cursor (desktop) -->
+  <div id="cursor" aria-hidden="true">💗</div>
+
+  <!-- Music toggle button -->
+  <button id="music-btn" aria-label="Toggle background music" title="Toggle music">
+    <span id="music-icon">♫</span>
+  </button>
+
+  <!-- ═══════════════════════════════════════════════
+       SCENE 1 — THE UNIVERSE
+       Breathing text over a deep starfield
+  ═══════════════════════════════════════════════ -->
+  <section id="s-universe" class="scene active" aria-live="polite">
+    <div class="universe-center">
+      <p class="universe-phrase" id="universe-phrase">Close your eyes for a moment…</p>
+      <p class="universe-sub" id="universe-sub"></p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       SCENE 2 — HEART CONSTELLATION
+       Stars drift & form a glowing heart with "Niti"
+  ═══════════════════════════════════════════════ -->
+  <section id="s-constellation" class="scene" aria-live="polite">
+    <p class="constellation-label">The stars led me to you…</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       SCENE 3 — THE ENVELOPE
+       Materialises from stardust implosion
+  ═══════════════════════════════════════════════ -->
+  <section id="s-envelope" class="scene">
+    <div class="env-scene">
+      <!-- Pulsing aura ring behind envelope -->
+      <div class="env-aura"></div>
+
+      <div class="envelope-wrap">
+        <!-- 3-D envelope built entirely in CSS -->
+        <div class="envelope" id="envelope" role="button" tabindex="0"
+             aria-label="Open the envelope">
+
+          <!-- Structural panels -->
+          <div class="env-back"></div>
+          <div class="env-flap-left"></div>
+          <div class="env-flap-right"></div>
+          <div class="env-flap-bottom"></div>
+
+          <!-- Top flap — rotates open -->
+          <div class="env-flap-top" id="env-flap-top"></div>
+
+          <!-- Letter peeking out when open -->
+          <div class="env-letter-peek" id="env-letter-peek">
+            <div class="peek-inner">
+              <span class="peek-line"></span>
+              <span class="peek-line short"></span>
+              <span class="peek-line"></span>
+            </div>
+          </div>
+
+          <!-- Wax seal -->
+          <div class="env-seal" id="env-seal">
+            <div class="seal-ring">
+              <div class="seal-face">✦</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="env-hint" id="env-hint">tap to open 💌</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       SCENE 4 — THE LOVE LETTER + QUESTION
+  ═══════════════════════════════════════════════ -->
+  <section id="s-letter" class="scene">
+    <div class="letter-scroll">
+
+      <!-- Paper card -->
+      <article class="letter-paper" id="letter-paper">
+        <div class="paper-deco-top">
+          <span class="fleuron">❧</span>
+          <div class="deco-rule"></div>
+          <span class="fleuron">❧</span>
+        </div>
+
+        <div id="letter-text" class="letter-text" aria-live="polite" aria-label="Love letter"></div>
+
+        <div class="letter-sig" id="letter-sig">
+          <div class="sig-divider">~ ❤ ~</div>
+          <p class="sig-body">Forever yours,<br><span class="sig-name">Krutik</span></p>
+        </div>
+      </article>
+
+      <!-- Question card that fades in after letter -->
+      <div class="question-card" id="question-card">
+        <p class="question-text">Will you be mine, Niti? 💕</p>
+        <div class="btn-row">
+          <button class="btn-yes" id="btn-yes" aria-label="Yes, I will">
+            <span class="btn-shine"></span>
+            Yes! 💖
+          </button>
+          <button class="btn-no" id="btn-no" aria-label="No">No 😅</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════
+       SCENE 5 — CELEBRATION (YES clicked)
+  ═══════════════════════════════════════════════ -->
+  <section id="s-celebration" class="scene">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="celeb-content">
+      <div class="celeb-heart-mega">💖</div>
+
+      <p class="celeb-msg">
+        You just made me the happiest person<br>
+        in the entire universe, Niti! 💕
+      </p>
+      <p class="celeb-from">— Always and forever, Krutik 🌹</p>
+    </div>
+  </section>
+
+  <!-- ───────────── AUDIO ─────────────
+       Add a file named music.mp3 to this folder for local playback.
+       Or replace the src below with any direct mp3 URL.
+  ───────────────────────────────────── -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg" />
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
